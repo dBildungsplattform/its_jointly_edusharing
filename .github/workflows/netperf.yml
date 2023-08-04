@@ -38,5 +38,5 @@ jobs:
           file: ./k-bench/netperf/Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ steps.docker_meta_img_hub.outputs.tags }}
+          tags: ${{ steps.docker_meta_img.outputs.tags }}
           labels: ${{ steps.docker_meta_img.outputs.labels }}
