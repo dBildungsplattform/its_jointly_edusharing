@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rediscluster
+  labels: 
+    app: rediscluster
+spec:
+  podManagementPolicy: Parallel
+  replicas: {{ REDISCLUSER_REPLICAS|default(6, true) }}
+  selector:
+    matchLabels: 
+      app: rediscluster
+  serviceName: rediscluster-headless
+  template:
+    metadata:
+      name: rediscluster
+      labels: 
+        app: rediscluster
+    spec:
+      containers:
+      - name: rediscluster
+        image: {{ REDISCLUSER_IMAGE_NAME }}:{{ REDISCLUSER_IMAGE_TAG }}
+        imagePullPolicy: IfNotPresent
+        command:
+          - "/bin/bash"
+          - "-ec"
+          - |
+            cp /opt/bitnami/redis/etc/redis-default.conf /opt/bitnami/redis/etc/redis.conf
+            if [[ "${HOSTNAME##*-}" == "0" ]]; then
+              export REDIS_CLUSTER_CREATOR="yes"
+            fi
+            /opt/bitnami/scripts/redis-cluster/entrypoint.sh /opt/bitnami/scripts/redis-cluster/run.sh
+        env:
+          - name: REDIS_CLUSTER_ANNOUNCE_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+        envFrom:
+        - configMapRef:
+            name: rediscluster-env
+        ports:
+        - name: api
+          containerPort: 6379
+        - name: gossip
+          containerPort: 16379
+        volumeMounts:
+        - name: data
+          mountPath: /bitnami/redis
+        - name: file
+          mountPath: /opt/bitnami/redis/etc/redis-default.conf
+          subPath: redis-default.conf
+      volumes:
+      - name: file
+        configMap:
+        name: rediscluster-file
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        labels: 
+          app: rediscluster
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        volumeMode: Filesystem
+        resources:
+          requests:
+            storage: {{ REDISCLUSER_CAPACITY|default("5Gi", true) }}
