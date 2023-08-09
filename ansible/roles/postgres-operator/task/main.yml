@@ -1,0 +1,17 @@
+  - name: Add zalando postgres-operator-charts repo
+    kubernetes.core.helm_repository:
+      name: postgres-operator-charts
+      repo_url: "https://opensource.zalando.com/postgres-operator/charts/postgres-operator"
+    delegate_to: localhost
+    changed_when: false
+
+  - name: install zalando postgres-operator chart
+    kubernetes.core.helm:
+      name: {{ POSTGRES_OPERATOR_NAME }}
+      chart_ref: postgres-operator-charts/postgres-operato
+      update_repo_cache: yes
+      wait: no
+      chart_version: "{{ POSTGRES_OPERATOR_CHART_VERSION }}"
+      kubeconfig: ~/.kube/config
+      namespace: "{{ NAMESPACE }}"
+      release_namespace: "{{ NAMESPACE }}"
