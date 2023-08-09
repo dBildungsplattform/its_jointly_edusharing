@@ -17,7 +17,7 @@
       chart_ref: bitnamicharts/redis-cluster
       update_repo_cache: yes
       wait: no
-      chart_version: "{{ redis_cluster_chart_version }}"
+      chart_version: "{{ REDISCLUSTER_CHART_VERSION }}"
       kubeconfig: ~/.kube/config
       namespace: "{{ NAMESPACE }}"
       release_namespace: "{{ NAMESPACE }}"
