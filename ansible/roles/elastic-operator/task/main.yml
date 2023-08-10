@@ -1,0 +1,28 @@
+  - name: Add elastic-operator repo
+    kubernetes.core.helm_repository:
+      name: elastic
+      repo_url: "https://helm.elastic.co"
+    delegate_to: localhost
+    changed_when: false
+
+  - name: install elastic-operator chart
+    kubernetes.core.helm:
+      name: elastic-operator
+      chart_ref: elastic/eck-operator
+      update_repo_cache: yes
+      wait: no
+      chart_version: "{{ ELASTIC_OPERATOR_CHART_VERSION }}"
+      kubeconfig: ~/.kube/config
+      namespace: "{{ OPERATOR_NAMESPACE }}"
+      release_namespace: "{{ OPERATOR_NAMESPACE }}"
+      values:
+        global:
+          kubeVersion: "{{ ELASTIC_OPERATOR_KUBE_VERSION }}"
+        image:
+          repository: "{{ ELASTIC_OPERATOR_REPOSETORY }}"
+          pullPolicy: "{{ ELASTIC_OPERATOR_PULL_POLICY }}"
+          tag: "{{ ELASTIC_OPERATOR_CHART_VERSION }}"
+        config:
+          metricsPort: "{{ ELASTIC_OPERATOR_METRIC_PORT }}"
+        podMonitor:
+          enabled: "{{ ELASTIC_OPERATOR_METRIC_POD_MONITOR_ENABLED }}"
