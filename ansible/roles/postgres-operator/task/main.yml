@@ -13,5 +13,5 @@
       wait: no
       chart_version: "{{ POSTGRES_OPERATOR_CHART_VERSION }}"
       kubeconfig: ~/.kube/config
-      namespace: "{{ NAMESPACE }}"
-      release_namespace: "{{ NAMESPACE }}"
+      namespace: "{{ OPERATOR_NAMESPACE }}"
+      release_namespace: "{{ OPERATOR_NAMESPACE }}"
