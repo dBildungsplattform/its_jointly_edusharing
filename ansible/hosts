@@ -1,0 +1,15 @@
+[develop]
+dev_host
+
+[reference]
+
+[production]
+
+[sc:children]
+develop
+reference
+production
+
+[sc:vars]
+ansible_host=localhost
+connection=local

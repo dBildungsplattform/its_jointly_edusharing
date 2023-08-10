@@ -1,0 +1,9 @@
+---
+- name: Operator Deploy
+  hosts:
+    - develop
+  connection: local
+  roles:
+    - sys-operator
+    - elastic-operator
+    - postgres-operator
