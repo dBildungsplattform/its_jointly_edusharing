@@ -5,11 +5,11 @@ dev_host
 
 [production]
 
-[sc:children]
+[es:children]
 develop
 reference
 production
 
-[sc:vars]
+[es:vars]
 ansible_host=localhost
 connection=local

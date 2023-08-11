@@ -4,6 +4,6 @@
     - develop
   connection: local
   roles:
-    - sys-operator
-    - elastic-operator
-    - postgres-operator
+    - role: sys-operator
+    - role: elastic-operator
+    - role: postgres-operator

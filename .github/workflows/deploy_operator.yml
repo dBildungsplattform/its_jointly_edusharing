@@ -20,7 +20,7 @@ jobs:
         run: |
           mkdir files
           echo "${{ secrets.DEV_CLUSTER }}" > files/config
-      - run: ansible-playbook ./playbook_operator.yml --inventory-file hosts --limit "dev_host" -e 'ansible_python_interpreter=/usr/bin/python3'
+      - run: ansible-playbook ./playbook_operator.yml --inventory-file hosts --limit "develop" -e 'ansible_python_interpreter=/usr/bin/python3'
         working-directory: ${{github.workspace }}/ansible
       - working-directory: ${{github.workspace }}/ansible/roles/sys-operator/files
         run: |
