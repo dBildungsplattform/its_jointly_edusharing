@@ -1,0 +1,8 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: elastic-operator-user
+rules:
+- apiGroups: ["elasticsearch.k8s.elastic.co"]
+  resources: ["Elasticsearch","Elasticsearch/status","Elasticsearch/finalizers"]
+  verbs: {{ ELASTIC_OPERATOR_USER_CLUSER_ROLE }}
