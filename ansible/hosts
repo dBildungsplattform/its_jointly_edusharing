@@ -1,3 +1,9 @@
+[cluster]
+dbp-dev-mediathek
+
+[cluster:vars]
+gather_facts=false
+
 [develop]
 dev_host
 
@@ -13,3 +19,4 @@ production
 [es:vars]
 ansible_host=localhost
 connection=local
+gather_facts=false
