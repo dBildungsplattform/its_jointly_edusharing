@@ -26,3 +26,8 @@
           metricsPort: "{{ ELASTIC_OPERATOR_METRIC_PORT }}"
         podMonitor:
           enabled: "{{ ELASTIC_OPERATOR_METRIC_POD_MONITOR_ENABLED }}"
+  - name: User Cluster Role
+    kubernetes.core.k8s:
+      kubeconfig: ~/.kube/config
+      namespace: "{{ NAMESPACE }}"
+      template: clusterrole.yml.j2

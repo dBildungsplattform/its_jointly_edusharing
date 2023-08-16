@@ -4,3 +4,4 @@ ELASTIC_OPERATOR_REPOSETORY: docker.elastic.co/eck/eck-operator
 ELASTIC_OPERATOR_PULL_POLICY: IfNotPresent
 ELASTIC_OPERATOR_METRIC_PORT: 8090
 ELASTIC_OPERATOR_METRIC_POD_MONITOR_ENABLED: true
+ELASTIC_OPERATOR_USER_CLUSER_ROLE:  ["get", "list", "watch", "create", "update", "patch", "delete"]
