@@ -1,5 +1,5 @@
-   - name: Namespace
+  - name: Namespace
     kubernetes.core.k8s:
-      kubeconfig: ~/.kube/config 
+      kubeconfig: "{{ kubeconfig }}" 
       namespace: "{{ OPERATOR_NAMESPACE }}"
       template: namespace.yml.j2

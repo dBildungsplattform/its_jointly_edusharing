@@ -12,7 +12,7 @@
       update_repo_cache: yes
       wait: no
       chart_version: "{{ ELASTIC_OPERATOR_CHART_VERSION }}"
-      kubeconfig: ~/.kube/config
+      kubeconfig:"{{ kubeconfig }}"
       namespace: "{{ OPERATOR_NAMESPACE }}"
       release_namespace: "{{ OPERATOR_NAMESPACE }}"
       values:
@@ -28,6 +28,6 @@
           enabled: "{{ ELASTIC_OPERATOR_METRIC_POD_MONITOR_ENABLED }}"
   - name: User Cluster Role
     kubernetes.core.k8s:
-      kubeconfig: ~/.kube/config
+      kubeconfig: "{{ kubeconfig }}"
       namespace: "{{ NAMESPACE }}"
       template: clusterrole.yml.j2

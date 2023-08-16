@@ -1,9 +1,7 @@
 ---
 - name: Operator Deploy
   hosts:
-    - develop
+    - cluster
   connection: local
   roles:
     - role: sys-operator
-    - role: elastic-operator
-    - role: postgres-operator
