@@ -12,7 +12,7 @@
       update_repo_cache: yes
       wait: no
       chart_version: "{{ ELASTIC_OPERATOR_CHART_VERSION }}"
-      kubeconfig:"{{ kubeconfig }}"
+      kubeconfig: "{{ kubeconfig }}"
       namespace: "{{ OPERATOR_NAMESPACE }}"
       release_namespace: "{{ OPERATOR_NAMESPACE }}"
       values:
