@@ -5,6 +5,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: "{{ item.name }}"
+    namespace: "{{ item.namespace | default('default', true) }}"
 roleRef:
   kind: ClusterRole
   name: secret-reader
