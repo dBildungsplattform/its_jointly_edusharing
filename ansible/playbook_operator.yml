@@ -6,3 +6,4 @@
   roles:
     - role: sys-operator
     - role: elastic-operator
+    - role: postgres-operator
