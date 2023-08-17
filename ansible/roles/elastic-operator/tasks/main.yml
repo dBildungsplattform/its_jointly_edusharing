@@ -33,7 +33,7 @@
       namespace: "{{ OPERATOR_NAMESPACE }}"
       template: clusterrole.yml.j2
 
-  - name: User Cluster Role
+  - name: User Cluster Role Binding
     kubernetes.core.k8s:
       kubeconfig: "{{ kubeconfig }}"
       namespace: "{{ OPERATOR_NAMESPACE }}"
