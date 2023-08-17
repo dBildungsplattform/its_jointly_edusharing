@@ -5,3 +5,4 @@
   connection: local
   roles:
     - role: sys-operator
+    - role: elastic-operator

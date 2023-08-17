@@ -1,0 +1,3 @@
+OPERATOR_NAMESPACE: operators
+OPERATOR_SERVICE_ACCOUNTS:
+  - name: github-deployments
