@@ -8,7 +8,7 @@
   - name: install zalando postgres-operator chart
     kubernetes.core.helm:
       name: "{{ POSTGRES_OPERATOR_NAME }}"
-      chart_ref: postgres-operator-charts/postgres-operato
+      chart_ref: postgres-operator-charts/postgres-operator
       update_repo_cache: yes
       wait: no
       chart_version: "{{ POSTGRES_OPERATOR_CHART_VERSION }}"
