@@ -59,6 +59,7 @@ jobs:
       - create_artifacts_workspaces
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v3
       - run: mv */*.tar ./
       - run: find -name "*.tar" -exec tar -xf {} \;
