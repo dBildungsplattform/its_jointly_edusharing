@@ -28,7 +28,6 @@
           repository: "{{ REDISCLUSTER_REPOSITORY }}"
           tag: "{{ REDISCLUSTER_TAG }}"
           pullPolicy: "{{ REDISCLUSTER_PULL_POLICY }}"
-          pullSecrets: "{{ REDISCLUSTER_PULL_SECRETS }}"
         existingSecret: "{{ REDISCLUSTER_SECRET }}"
         existingSecretPasswordKey: "{{ REDISCLUSTER_PASSWORD_KEY }}"
         persistence:
