@@ -51,7 +51,6 @@
             repository: "{{ REDISCLUSTER_METRICS_REPOSITORY }}"
             tag: "{{ REDISCLUSTER_METRICS_TAG }}"
             pullPolicy: "{{ REDISCLUSTER_METRICS_PULL_POLICY }}"
-            pullSecrets: "{{ REDISCLUSTER_METRICS_PULL_SECRETS }}"
           serviceMonitor:
             enabled: "{{ REDISCLUSTER_METRICS_SERVICE_MONITOR }}"
           resources: "{{ REDISCLUSTER_METRICS_RESOURCES }}"
