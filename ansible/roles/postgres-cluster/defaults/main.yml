@@ -1,12 +1,10 @@
 POSTGRES_NAME: edusharing-postgresql
 POSTGRES_APP: edusharing
 POSTGRES_DATABASES:
-  - db_name: postgresql
-    db_user: postgresql
+  postgresql: postgresql
 POSTGRES_USERS:
-  - name: postgresql
-    options: 
-      - createdb
+  postgresql: 
+    - createdb
 POSTGRES_INSTANCE_COUNT: 1
 POSTGRES_PATRONI_SYNC_MODE: true
 POSTGRES_PATRONI_SYNC_MODE_STRICT: true
