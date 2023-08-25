@@ -8,5 +8,5 @@ subjects:
     namespace: "{{ item.namespace | default('default', true) }}"
 roleRef:
   kind: ClusterRole
-  name: secret-reader
+  name: elastic-operator-user
   apiGroup: rbac.authorization.k8s.io
