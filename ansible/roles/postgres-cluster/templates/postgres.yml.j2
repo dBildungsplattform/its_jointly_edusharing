@@ -1,0 +1,26 @@
+apiVersion: acid.zalan.do/v1
+kind: postgresql
+metadata:
+  name: {{ POSTGRES_NAME }}
+  labels: 
+    app: {{ POSTGRES_APP }}
+spec:
+  databases:
+{% for db_name, db_user  in POSTGRES_DATABASES.items() %}
+    {{ db_name }}: {{ db_user }}
+{% endfor %}
+  users:
+{% for name, options  in POSTGRES_USERS.items() %}
+    {{ name }}: {{ options }}
+{% endfor %}
+  numberOfInstances: {{ POSTGRES_INSTANCE_COUNT }}
+  patroni:
+    synchronous_mode:  {{ POSTGRES_PATRONI_SYNC_MODE }}
+    synchronous_mode_strict: {{ POSTGRES_PATRONI_SYNC_MODE_STRICT }}
+  postgresql:
+    version: {{ POSTGRES_SERVER_VERSION }}
+    parameters: {{ POSTGRES_SERVER_PARAMS }}
+  volume:
+    size: {{ POSTGRES_PVC_SIZE }}
+    storageClass: {{ POSTGRES_PVC_CLASS }}
+  resources: 
