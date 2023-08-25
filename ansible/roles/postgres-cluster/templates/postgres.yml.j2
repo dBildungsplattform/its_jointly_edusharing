@@ -21,7 +21,7 @@ spec:
     version: "{{ POSTGRES_SERVER_VERSION }}"
     parameters: 
 {% for PARAM, VALUE  in POSTGRES_SERVER_PARAMS.items() %}
-      {{ PARAM }}: {{ VALUE }}
+      {{ PARAM }}: "{{ VALUE }}"
 {% endfor %}
   volume:
     size: {{ POSTGRES_PVC_SIZE }}
