@@ -1,0 +1,83 @@
+---
+name: push workflow
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+  branch_meta:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.extract_branch_meta.outputs.branch }}
+      sha: ${{ steps.extract_branch_meta.outputs.sha }}
+    steps:
+      - name: Extract branch meta
+        shell: bash
+        id: extract_branch_meta
+        run: |
+          if [ "${{ github.event_name }}" == 'pull_request' ]; then
+            echo "branch=${{ github.event.pull_request.head.ref }}" >> $GITHUB_OUTPUT
+            echo "sha=${{ github.event.pull_request.head.sha }}" >> $GITHUB_OUTPUT
+          else
+            echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+            echo "sha=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+  create_branch_identifier:
+    needs:
+      - branch_meta
+    uses: hpi-schul-cloud/dof_app_deploy/.github/workflows/branch-to-namespace.yml@main
+    with:
+      branch: ${{ needs.branch_meta.outputs.branch }}
+
+  create_artifacts_workspaces:
+    runs-on: ubuntu-latest
+    needs:
+      - create_branch_identifier
+    strategy:
+      matrix:
+        tennens: [ dev ]
+    steps:
+      - shell: bash
+        run: |
+          mkdir -pv ansible/host_vars/${{ matrix.tennens }}_host
+      - shell: bash
+        working-directory: ${{github.workspace }}/ansible/host_vars/${{ matrix.tennens }}_host
+        run: |
+          echo "NAMESPACE: ${{ matrix.tennens }}-${{ needs.create_branch_identifier.outputs.id_branch }}" > cfg_host.yml
+          echo "DOMAIN: ${{ matrix.tennens }}-${{ needs.create_branch_identifier.outputs.id_branch }}.cd.dbildungscloud.dev" >> cfg_host.yml
+      - run: tar -cf ${{ matrix.tennens }}.tar ansible
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.tennens }}
+          path: ${{github.workspace }}/${{ matrix.tennens }}.tar
+
+  deploy:
+    needs: 
+      - create_artifacts_workspaces
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - run: mv */*.tar ./
+      - run: find -name "*.tar" -exec tar -xf {} \;
+      - run: tar -cf ansible.tar ansible
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ansible
+          path: ${{github.workspace }}/ansible.tar
+      - shell: bash
+        run: |
+          python3 -m pip install kubernetes
+          
+      - run: ansible-galaxy install -r ansible/collections/requirements.yml
+      - working-directory: ${{github.workspace }}/ansible/roles/sys-auto
+        run: |
+          mkdir files
+          echo "${{ secrets.DEV_CLUSTER }}" > files/config
+      - run: ansible-playbook ./playbook_autodeployment.yml --inventory-file hosts -e 'ansible_python_interpreter=/usr/bin/python3'
+        working-directory: ${{github.workspace }}/ansible
+      - working-directory: ${{github.workspace }}/ansible/roles/sys-auto/files
+        run: |
+          rm -rf  ./config

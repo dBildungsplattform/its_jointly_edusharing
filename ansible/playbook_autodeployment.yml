@@ -1,0 +1,10 @@
+---
+- name: Edusharing auto Deployment
+  hosts:
+    - develop
+  connection: local
+  roles:
+    - role: sys-auto
+#    - role: elastic-cluster
+#    - role: postgres-cluster
+#    - role: redis_cluster
