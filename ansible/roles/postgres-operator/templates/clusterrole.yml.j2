@@ -4,5 +4,5 @@ metadata:
   name: postgres-user
 rules:
 - apiGroups: ["acid.zalan.do"]
-  resources: ["postgresql"]
+  resources: ["postgresqls", "postgresqls/status"]
   verbs: {{ POSTGRES_OPERATOR_USER_CLUSTER_ROLE }}
