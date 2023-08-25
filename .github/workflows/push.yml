@@ -73,6 +73,11 @@ jobs:
           python3 -m pip install kubernetes
           
       - run: ansible-galaxy install -r ansible/collections/requirements.yml
+      - name: 1Password
+        working-directory: ${{github.workspace }}/ansible/group_vars
+        run: |
+          mkdir develop
+          echo "ONEPASSWORD_OPERATOR_VAULT: ${{ secrets.DEV_VAULT }}" >> develop/deploy.yml
       - working-directory: ${{github.workspace }}/ansible/roles/sys-auto
         run: |
           mkdir files
