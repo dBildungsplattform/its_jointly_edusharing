@@ -13,7 +13,7 @@
 
   - name: redis cluster
     kubernetes.core.helm:
-      name: {{ REDISCLUSTER_LABEL }}
+      name: "{{ REDISCLUSTER_LABEL }}"
       chart_ref: bitnamicharts/redis-cluster
       update_repo_cache: yes
       wait: no
