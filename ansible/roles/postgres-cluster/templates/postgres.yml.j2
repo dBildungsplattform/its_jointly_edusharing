@@ -18,8 +18,8 @@ spec:
     synchronous_mode:  {{ POSTGRES_PATRONI_SYNC_MODE }}
     synchronous_mode_strict: {{ POSTGRES_PATRONI_SYNC_MODE_STRICT }}
   postgresql:
-    version: {{ POSTGRES_SERVER_VERSION }}
-    parameters: {{ POSTGRES_SERVER_PARAMS }}
+    version: "{{ POSTGRES_SERVER_VERSION }}"
+    parameters: [ {% for item in POSTGRES_SERVER_PARAMS %} "{{ item }}", {% endfor %} ]
   volume:
     size: {{ POSTGRES_PVC_SIZE }}
     storageClass: {{ POSTGRES_PVC_CLASS }}
