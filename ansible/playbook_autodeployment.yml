@@ -6,5 +6,5 @@
   roles:
     - role: sys-auto
 #    - role: elastic-cluster
-#    - role: postgres-cluster
+    - role: postgres-cluster
     - role: redis_cluster

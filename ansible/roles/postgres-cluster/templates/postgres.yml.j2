@@ -24,3 +24,9 @@ spec:
     size: {{ POSTGRES_PVC_SIZE }}
     storageClass: {{ POSTGRES_PVC_CLASS }}
   resources: 
+    limits:
+      cpu: {{ POSTGRES_LIMITS_CPU }}
+      memory: {{ POSTGRES_LIMITS_MEMORY }}
+    requests:
+      cpu: {{ POSTGRES_REQUESTS_CPU }}
+      memory: {{ POSTGRES_REQUESTS_MEMORY }}
