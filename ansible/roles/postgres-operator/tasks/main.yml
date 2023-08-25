@@ -27,14 +27,13 @@
       kubeconfig: "{{ kubeconfig }}"
       api_version: rbac.authorization.k8s.io/v1
       kind: ClusterRoleBinding
-      name: postgres-operator-user
+      name: postgres-user
       state: absent
       wait: yes
 
   - name: User Cluster Role Binding
     kubernetes.core.k8s:
       kubeconfig: "{{ kubeconfig }}"
-      namespace: "{{ OPERATOR_NAMESPACE }}"
       template: clusterrole_binding.yml.j2
     with_items: "{{ OPERATOR_SERVICE_ACCOUNTS }}"
     loop_control:
