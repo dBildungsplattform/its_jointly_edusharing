@@ -5,6 +5,7 @@ metadata:
   labels: 
     app: {{ POSTGRES_APP }}
 spec:
+  teamId: {{ POSTGRES_TEAM_ID }}
   databases:
 {% for db_name, db_user  in POSTGRES_DATABASES.items() %}
     {{ db_name }}: {{ db_user }}

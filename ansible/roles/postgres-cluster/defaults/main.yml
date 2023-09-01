@@ -1,5 +1,6 @@
 POSTGRES_NAME: edusharing-postgresql
 POSTGRES_APP: edusharing
+POSTGRES_TEAM_ID: dataport
 POSTGRES_DATABASES:
   postgresql: postgresql
 POSTGRES_USERS:
