@@ -1,0 +1,25 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 8.9.1
+  volumeClaimDeletePolicy: DeleteOnScaledownOnly
+  nodeSets:
+{% for name, item  in ELASTIC_NODES.items() %}
+  - name: {{ name }}
+    count: {{ item.COUNT }}
+    config:
+      node.roles: {{ item.NODE_ROLES }}
+      node.remote_cluster_client: false
+    volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ item.STORAGE_SIZE }}
+        storageClassName: {{ item.STORAGE_CLASS }}
+{% endfor %}

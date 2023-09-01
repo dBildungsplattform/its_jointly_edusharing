@@ -1,1 +1,11 @@
-## coming soon
+ELASTIC_NODES:
+  elastic:
+    COUNT: 3
+    NODE_ROLES:
+      - "master"
+      - "data"
+      - "ingest"
+      - "ml"
+      - "transform"
+    STORAGE_SIZE: 30Gi
+    STORAGE_CLASS: ionos-enterprise-hdd
