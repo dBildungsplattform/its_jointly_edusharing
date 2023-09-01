@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: postgres-user
+  name: postgres-ci-user
 rules:
 - apiGroups: ["acid.zalan.do"]
   resources: ["postgresqls", "postgresqls/status"]

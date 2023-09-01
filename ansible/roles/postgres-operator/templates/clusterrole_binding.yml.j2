@@ -1,12 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: postgres-user
+  name: postgres-ci-user
 subjects:
   - kind: ServiceAccount
     name: "{{ item.name }}"
     namespace: "{{ item.namespace | default('default', true) }}"
 roleRef:
   kind: ClusterRole
-  name: postgres-user
+  name: postgres-ci-user
   apiGroup: rbac.authorization.k8s.io
