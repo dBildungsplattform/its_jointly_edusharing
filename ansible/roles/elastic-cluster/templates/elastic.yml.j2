@@ -3,7 +3,7 @@ kind: Elasticsearch
 metadata:
   name: {{ ELASTIC_NAME }}
 spec:
-  version: 8.9.1
+  version: 8.9.0
   volumeClaimDeletePolicy: DeleteOnScaledownOnly
   nodeSets:
 {% for name, item  in ELASTIC_NODES.items() %}
@@ -11,36 +11,8 @@ spec:
     count: {{ item.COUNT }}
     config:
       node.roles: {{ item.NODE_ROLES }}
-    podTemplate:
-      metadata:
-        labels:
-          app: {{ ELASTIC_NAME }}
-      spec:
-        containers:
-        - name: {{ name }}
-          resources:
-            limits:
-              memory: 4Gi
-              cpu: 4000m
-            requests:
-              memory: 2Gi
-              cpu: 1000m
-          readinessProbe:
-            exec:
-              command:
-              - bash
-              - -c
-              - /mnt/elastic-internal/scripts/readiness-probe-script.sh
-            failureThreshold: 3
-            initialDelaySeconds: 10
-            periodSeconds: 12
-            successThreshold: 1
-            timeoutSeconds: 12
-          env:
-            - name: ES_JAVA_OPTS
-              value: "-Xms2g -Xmx2g"
-            - name: READINESS_PROBE_TIMEOUT
-              value: "10"
+      xpack.ml.enabled: true
+      node.remote_cluster_client: false
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
