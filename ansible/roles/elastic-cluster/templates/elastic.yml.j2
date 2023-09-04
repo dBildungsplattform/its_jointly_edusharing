@@ -3,15 +3,13 @@ kind: Elasticsearch
 metadata:
   name: {{ ELASTIC_NAME }}
 spec:
-  version: 8.9.0
-  volumeClaimDeletePolicy: DeleteOnScaledownOnly
+  version: 8.9.1
   nodeSets:
 {% for name, item  in ELASTIC_NODES.items() %}
   - name: {{ name }}
-    count: {{ item.COUNT }}
+    count: 1
     config:
-      node.roles: {{ item.NODE_ROLES }}
-      xpack.ml.enabled: true
+      node.store.allow_mmap: false
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
