@@ -7,7 +7,7 @@ spec:
   nodeSets:
 {% for name, item  in ELASTIC_NODES.items() %}
   - name: {{ name }}
-    count: 1
+    count: {{ item.COUNT }}
     config:
       node.store.allow_mmap: false
     volumeClaimTemplates:
