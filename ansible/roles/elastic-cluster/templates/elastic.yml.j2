@@ -12,7 +12,6 @@ spec:
     config:
       node.roles: {{ item.NODE_ROLES }}
       xpack.ml.enabled: true
-      node.remote_cluster_client: false
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
