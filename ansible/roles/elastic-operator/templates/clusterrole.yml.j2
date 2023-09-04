@@ -4,5 +4,5 @@ metadata:
   name: elastic-operator-ci-user
 rules:
 - apiGroups: ["elasticsearch.k8s.elastic.co"]
-  resources: ["Elasticsearch","Elasticsearch/status","Elasticsearch/finalizers"]
+  resources: ["elasticsearches","elasticsearches/status","elasticsearches/finalizers"]
   verbs: {{ ELASTIC_OPERATOR_USER_CLUSER_ROLE }}
