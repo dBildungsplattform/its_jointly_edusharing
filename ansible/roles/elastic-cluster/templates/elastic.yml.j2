@@ -10,6 +10,36 @@ spec:
     count: {{ item.COUNT }}
     config:
       node.store.allow_mmap: false
+    podTemplate:
+      metadata:
+        labels:
+          app: {{ ELASTIC_NAME }}
+      spec:
+        containers:
+        - name: elasticsearch
+          resources:
+            limits:
+              memory: 4Gi
+              cpu: 4000m
+            requests:
+              memory: 2Gi
+              cpu: 1000m
+          readinessProbe:
+            exec:
+              command:
+              - bash
+              - -c
+              - /mnt/elastic-internal/scripts/readiness-probe-script.sh
+            failureThreshold: 3
+            initialDelaySeconds: 10
+            periodSeconds: 12
+            successThreshold: 1
+            timeoutSeconds: 12
+          env:
+            - name: ES_JAVA_OPTS
+              value: "-Xms2g -Xmx2g"
+            - name: READINESS_PROBE_TIMEOUT
+              value: "10"
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
