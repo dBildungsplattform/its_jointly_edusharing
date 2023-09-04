@@ -1,4 +1,4 @@
-POSTGRES_NAME: edusharing-postgresql
+POSTGRES_NAME: postgresql
 POSTGRES_APP: edusharing
 POSTGRES_TEAM_ID: dataport
 POSTGRES_DATABASES:

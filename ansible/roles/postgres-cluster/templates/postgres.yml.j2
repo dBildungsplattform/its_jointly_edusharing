@@ -1,7 +1,7 @@
 apiVersion: acid.zalan.do/v1
 kind: postgresql
 metadata:
-  name: {{ POSTGRES_NAME }}
+  name: {{ POSTGRES_TEAM_ID }}-{{ POSTGRES_NAME }}
   labels: 
     app: {{ POSTGRES_APP }}
 spec:
