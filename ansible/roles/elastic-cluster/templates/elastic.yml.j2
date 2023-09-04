@@ -11,7 +11,6 @@ spec:
     count: {{ item.COUNT }}
     config:
       node.roles: {{ item.NODE_ROLES }}
-      node.remote_cluster_client: false
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
